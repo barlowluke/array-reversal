@@ -5,16 +5,16 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # used internally by CMake to identify your project
-project(prime)
+project(array-reversal)
 
 # Include the directory headers are located
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Add the main executable
-add_executable(prime src/main.cpp src/prime.cpp)
+add_executable(array-reversal src/main.cpp)
 
 # Add the test executable
-add_executable(my_test src/prime.cpp tests/test.cpp)
+add_executable(my_test src/main.cpp tests/test.cpp)
 
 # Include directories for the test target
 target_include_directories(my_test PRIVATE ${PROJECT_SOURCE_DIR}/include)
