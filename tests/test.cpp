@@ -195,3 +195,84 @@ TEST_CASE("print_array formatting", "[print_array]") {
         REQUIRE(ss.str() == "[1]\n");
     }
 }
+
+TEST_CASE("Reverse zero-element array", "[reverse_array][edge]") {
+    SECTION("Reverse empty integer array") {
+        int empty[] = {};
+        int ne = 0;
+        
+        // Should not crash or cause any issues
+        REQUIRE_NOTHROW(reverse_array<int>(empty, ne));
+        
+        // Print should show empty brackets
+        std::stringstream ss;
+        std::streambuf* old_cout = std::cout.rdbuf(ss.rdbuf());
+        print_array<int>(empty, ne);
+        std::cout.rdbuf(old_cout);
+        
+        REQUIRE(ss.str() == "[]\n");
+    }
+    
+    SECTION("Reverse empty double array") {
+        double empty[] = {};
+        int ne = 0;
+        
+        REQUIRE_NOTHROW(reverse_array<double>(empty, ne));
+        
+        std::stringstream ss;
+        std::streambuf* old_cout = std::cout.rdbuf(ss.rdbuf());
+        print_array<double>(empty, ne);
+        std::cout.rdbuf(old_cout);
+        
+        REQUIRE(ss.str() == "[]\n");
+    }
+}
+
+TEST_CASE("Reverse single-element array", "[reverse_array][edge]") {
+    SECTION("Reverse single integer element") {
+        int single[] = {42};
+        int ns = 1;
+        
+        // Reverse should not change the single element
+        reverse_array<int>(single, ns);
+        REQUIRE(single[0] == 42);
+        
+        // Print should show the single element without comma
+        std::stringstream ss;
+        std::streambuf* old_cout = std::cout.rdbuf(ss.rdbuf());
+        print_array<int>(single, ns);
+        std::cout.rdbuf(old_cout);
+        
+        REQUIRE(ss.str() == "[42]\n");
+    }
+    
+    SECTION("Reverse single character element") {
+        char single[] = {'A'};
+        int ns = 1;
+        
+        reverse_array<char>(single, ns);
+        REQUIRE(single[0] == 'A');
+        
+        std::stringstream ss;
+        std::streambuf* old_cout = std::cout.rdbuf(ss.rdbuf());
+        print_array<char>(single, ns);
+        std::cout.rdbuf(old_cout);
+        
+        REQUIRE(ss.str() == "[A]\n");
+    }
+    
+    SECTION("Reverse single double element") {
+        double single[] = {3.14};
+        int ns = 1;
+        
+        reverse_array<double>(single, ns);
+        REQUIRE(single[0] == 3.14);
+        
+        std::stringstream ss;
+        std::streambuf* old_cout = std::cout.rdbuf(ss.rdbuf());
+        print_array<double>(single, ns);
+        std::cout.rdbuf(old_cout);
+        
+        REQUIRE(ss.str() == "[3.14]\n");
+    }
+}
